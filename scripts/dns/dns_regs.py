@@ -21,6 +21,8 @@ def main(dominiio=None):
         zonas = listar_zonas()
         idx = int(input("Escolha a zona (número): ").strip()) - 1
         ZONA_FILE = os.path.join(ZONEDIR, zonas[idx])
+    else:
+        ZONA_FILE = os.path.join(ZONEDIR, f"{dominiio}.zone")  # ou ajuste conforme o nome do ficheiro
 
     # Backup
     copy2(ZONA_FILE, ZONA_FILE + ".bak")
