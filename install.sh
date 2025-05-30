@@ -20,7 +20,7 @@ sudo dnf install -y \
     fail2ban \
     iptables-services \
     net-tools \
-    knock
+    knockd
 
 echo "✅ Pacotes de sistema instalados."
 
