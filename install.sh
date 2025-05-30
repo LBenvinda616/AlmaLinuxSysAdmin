@@ -24,6 +24,17 @@ sudo dnf install -y \
 
 echo "✅ Pacotes de sistema instalados."
 
+# Ativar e iniciar serviços principais
+echo "🔄 A ativar e iniciar serviços..."
+for svc in named httpd smb nfs-server fail2ban firewalld knockd; do
+    if systemctl list-unit-files | grep -q "^${svc}\.service"; then
+        sudo systemctl enable --now $svc
+        echo "✅ Serviço $svc ativado e iniciado."
+    else
+        echo "⚠️  Serviço $svc não encontrado, ignorado."
+    fi
+done
+
 echo "🔧 A instalar bibliotecas Python necessárias..."
 
 # Instalar bibliotecas Python (todas são da biblioteca padrão, mas garantimos o pip)
