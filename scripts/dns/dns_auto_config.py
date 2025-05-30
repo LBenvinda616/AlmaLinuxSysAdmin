@@ -13,13 +13,13 @@ def main():
     print("\n▶️ A criar zona master...")
     subprocess.run(["python3", os.path.join(SCRIPTS_DIR, "dns/dns_master_zone.py"), "--auto", ip, dominio])
 
-    # Chama o script de zona reverse
-    print("\n▶️ A criar zona reverse...")
-    subprocess.run(["python3", os.path.join(SCRIPTS_DIR, "dns/dns_reverse_zone.py"), "--auto", ip, dominio])
-
     # Chama o script de registos DNS
     print("\n▶️ A criar registos DNS...")
     subprocess.run(["python3", os.path.join(SCRIPTS_DIR, "dns/dns_regs.py"), "--auto", ip, dominio])
+
+    # Chama o script de zona reverse
+    print("\n▶️ A criar zona reverse...")
+    subprocess.run(["python3", os.path.join(SCRIPTS_DIR, "dns/dns_reverse_zone.py"), "--auto", ip, dominio])
 
     print("\n✅ Configuração automática concluída!")
 
