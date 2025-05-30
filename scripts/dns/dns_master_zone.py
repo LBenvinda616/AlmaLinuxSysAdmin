@@ -22,7 +22,7 @@ def listar_zonas_master():
         print(" (nenhuma zona master configurada)")
     return zonas
 
-def criar_zona_master(dominio=None, ip=None):
+def criar_zona_master(ip=None, dominio=None):
     if dominio is None:
         dominio = input("Domínio: ").strip()
     if ip is None:
