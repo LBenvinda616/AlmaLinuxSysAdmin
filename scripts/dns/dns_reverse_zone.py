@@ -44,6 +44,7 @@ def criar_reverse_zone(ip=None):
         ip = input("Endereço IPv4 (ex: 192.168.1.10): ").strip()
         
     fqdn = input("FQDN (ex: host.exemplo.com.): ").strip()
+    
     if not re.match(r"^\d{1,3}(\.\d{1,3}){3}$", ip):
         print("❌ IP inválido.")
         return
@@ -84,7 +85,7 @@ def criar_reverse_zone(ip=None):
             f.write(f"""
 zone "{reverse_zone}" IN {{
     type master;
-    file "{zone_file}";
+    file "{reverse_zone}.zone";
 }};
 """)
         print(f"✅ Zona reverse adicionada ao {NAMED_CONF}")
