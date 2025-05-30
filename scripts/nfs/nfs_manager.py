@@ -47,6 +47,9 @@ def alterar_partilha():
     partilhas = listar_partilhas(mostrar_todas=True)
     if not partilhas:
         return
+    print("\nSelecione a partilha a alterar:")
+    for idx, l in enumerate(partilhas, 1):
+        print(f"{idx} - {l}")
     idx = int(input("Índice da partilha a alterar: ").strip()) - 1
     if idx < 0 or idx >= len(partilhas):
         print("❌ Índice inválido.")
