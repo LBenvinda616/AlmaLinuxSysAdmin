@@ -89,60 +89,26 @@ def desativar_partilha():
     else:
         print("❌ Partilha não encontrada.")
 
-def reativar_zona_master():
-    # Listar ficheiros de zona disponíveis
-    zonas_ficheiro = [f for f in os.listdir(BIND_DIR) if f.endswith(".zone")]
-    print("\n📂 Ficheiros de zona disponíveis em disco:")
-    for z in zonas_ficheiro:
-        print(f" - {z}")
-    dominio = input("Introduz o nome do domínio a reativar (ex: exemplo.com): ").strip()
-    zona_filename = f"{dominio}.zone"
-    zona_path = os.path.join(BIND_DIR, zona_filename)
-    if not os.path.exists(zona_path):
-        print("❌ Ficheiro de zona não existe em disco.")
-        return
-
-    # Verificar se já existe no named.conf
-    with open(NAMED_CONF_PATH, "r") as f:
-        named_conf = f.read()
-    if dominio in named_conf:
-        print("ℹ️ Zona já está ativa no named.conf.")
-        return
-
-    zona_conf = f"""
-zone "{dominio}" IN {{
-    type master;
-    file "{zona_filename}";
-}};
-"""
-    with open(NAMED_CONF_PATH, "a") as f:
-        f.write("\n" + zona_conf.strip() + "\n")
-    print(f"✅ Zona reativada no named.conf")
-
-    # Reiniciar serviço
-    try:
-        subprocess.run(["systemctl", "restart", "named"], check=True)
-        print("🔁 Serviço 'named' reiniciado com sucesso.")
-    except subprocess.CalledProcessError:
-        print("❌ Erro ao reiniciar o serviço 'named'.")
-
-# Atualiza o menu:
 def menu():
     while True:
-        print("\n===== GESTOR DE ZONAS MASTER DNS =====")
-        print("1️⃣  Criar zona master")
-        print("2️⃣  Eliminar zona master")
-        print("3️⃣  Reativar zona master")
+        print("\n===== GESTOR DE PARTILHAS NFS =====")
+        print("1️⃣  Listar partilhas")
+        print("2️⃣  Criar partilha")
+        print("3️⃣  Alterar partilha")
+        print("4️⃣  Eliminar partilha")
+        print("5️⃣  Desativar partilha")
         print("0️⃣  Sair")
         escolha = input("Selecione uma opção: ").strip()
         if escolha == '1':
-            dominio = input("Introduz o nome do domínio (ex: exemplo.com): ").strip()
-            ip = input("Introduz o IP para o registo A (ex: 192.168.1.10): ").strip()
-            criar_zona_master(dominio, ip)
+            listar_partilhas()
         elif escolha == '2':
-            eliminar_zona_master()
+            criar_partilha()
         elif escolha == '3':
-            reativar_zona_master()
+            alterar_partilha()
+        elif escolha == '4':
+            eliminar_partilha()
+        elif escolha == '5':
+            desativar_partilha()
         elif escolha == '0':
             print("👋 A sair...")
             break
