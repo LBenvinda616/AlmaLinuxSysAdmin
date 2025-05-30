@@ -1,6 +1,7 @@
 import os
 import subprocess
 import re
+import sys
 from shutil import copy2
 
 ZONEDIR = "/var/named"

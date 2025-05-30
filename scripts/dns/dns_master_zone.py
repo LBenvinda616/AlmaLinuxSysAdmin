@@ -2,6 +2,7 @@
 import os
 import subprocess
 import datetime
+import sys
 
 BIND_DIR = "/var/named"
 NAMED_CONF_PATH = "/etc/named.conf"
