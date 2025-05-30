@@ -2,6 +2,7 @@
 import os
 import subprocess
 import re
+import sys
 from shutil import copy2
 
 ZONEDIR = "/var/named"
@@ -144,7 +145,7 @@ def menu():
 
 if __name__ == "__main__":
     if len(sys.argv) > 3 and sys.argv[1] == "--auto":
-        criar_zona_reverse(sys.argv[2])
+        criar_reverse_zone(sys.argv[2])
     else:
         # menu normal
         menu()
