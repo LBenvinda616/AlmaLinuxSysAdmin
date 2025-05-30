@@ -10,10 +10,21 @@ NAMED_CONF_PATH = "/etc/named.conf"
 def listar_zonas_master():
     zonas = []
     with open(NAMED_CONF_PATH, "r") as f:
-        for line in f:
-            if line.strip().startswith('zone "') and 'type master;' in line:
-                nome = line.split('"')[1]
+        lines = f.readlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith('zone "'):
+            nome = line.split('"')[1]
+            # Verifica se o bloco tem 'type master;'
+            bloco = []
+            i += 1
+            while i < len(lines) and "};" not in lines[i]:
+                bloco.append(lines[i])
+                i += 1
+            if any("type master;" in l for l in bloco):
                 zonas.append(nome)
+        i += 1
     print("\n🌐 Zonas master existentes:")
     if zonas:
         for z in zonas:
