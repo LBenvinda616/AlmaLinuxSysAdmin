@@ -31,7 +31,7 @@ def listar_ips_bloqueados():
     print("🔎 IPs bloqueados pelo fail2ban (jail sshd):")
     result = subprocess.run(
         ["sudo", "fail2ban-client", "status", "sshd"],
-        capture_output=True, text=True
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
     )
     for line in result.stdout.splitlines():
         if "Banned IP list:" in line:
