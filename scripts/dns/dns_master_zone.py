@@ -137,7 +137,7 @@ def menu():
         print("0️⃣  Sair")
         escolha = input("Selecione uma opção: ").strip()
         if escolha == '1':
-            criar_zona_master(dominio, ip)
+            criar_zona_master()
         elif escolha == '2':
             eliminar_zona_master()
         elif escolha == '0':
